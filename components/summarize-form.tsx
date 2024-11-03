@@ -8,6 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import VideoImageFetcher from "@/components/VideoImageFetcher";
 import {useState} from "react";
 import {createClient} from "@/utils/supabase/client";
+import {redirect} from "next/navigation";
 
 const formSchema = z.object({
 
@@ -73,16 +74,16 @@ export default function SummarizeForm() {
 
         const thumbnailUrl = `https://img.youtube.com/vi/${getYouTubeVideoId(values.videourl)}/0.jpg`;
 
-        await supabase.from("history_chat").insert({
+        const result = await supabase.from("history_chat").insert({
             user_id: user.user?.id,
             summary: responseData.summary,
             video_image_url: thumbnailUrl,
             video_url: values.videourl
-        }).select("*");
+        }).select("*").single();
 
 
-        await new Promise(r => setTimeout(r, 5000));
-        window.location.reload();
+        redirect(`/summarize/${result.data.id}`)
+
     }
 
     return <div>
