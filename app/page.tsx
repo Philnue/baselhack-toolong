@@ -18,7 +18,6 @@ export default async function Index() {
                     a <span className="font-bold">DEADLY</span> subscription.
                 </div>
 
-                <div className="text-3xl mt-5">Just use your own <span className="font-bold">Key</span></div>
                 <div className="text-2xl mt-5">Please first Sign Up and then you can start SUMMARIZING</div>
 
                 <div className={"flex gap-4"}>
